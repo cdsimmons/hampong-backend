@@ -25,6 +25,8 @@ app.post('/games', async (req, res) => {
     try {
         const sets = req.body.sets;
         const startingPlayer = req.body.startingPlayer;
+        const playerOne = req.body.playerOne;
+        const playerTwo = req.body.playerTwo;
 
         const dbClient = await helpersDb.getDbClient();
         const db = await dbClient.db('live');
@@ -33,6 +35,8 @@ app.post('/games', async (req, res) => {
         const game = {
             sets,
             startingPlayer: Number(startingPlayer),
+            playerOne,
+            playerTwo,
             date: Math.floor(new Date().getTime() / 1000),
             dateReadable: new Date().toLocaleString('en-UK', { timeZone: 'Asia/Tokyo' }), // I am lazy, will want to read this later
             ip: req.socket.remoteAddress
